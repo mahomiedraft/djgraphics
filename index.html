@@ -1,1 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GAMEDAY GRAPHICS by DJ</title>
 
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Impact, Arial Black, Arial, sans-serif;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:#060606;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 18% 5%, rgba(255,28,52,.22), transparent 30%),
+    radial-gradient(circle at 82% 18%, rgba(170,0,30,.18), transparent 28%),
+    radial-gradient(circle at 50% 90%, rgba(255,255,255,.08), transparent 32%),
+    linear-gradient(135deg,#030303,#111 42%,#1b070a 72%,#030303);
+  pointer-events:none;
+  z-index:-2;
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size:42px 42px;
+  mask-image:linear-gradient(to bottom, black, transparent 90%);
+  pointer-events:none;
+  z-index:-1;
+}
+
+.hero{
+  min-height:72vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:90px 20px 70px;
+  border-bottom:1px solid rgba(255,40,55,.25);
+}
+
+.hero-inner{
+  animation:fadeUp .9s ease both;
+}
+
+.badge{
+  display:inline-block;
+  padding:10px 18px;
+  border:1px solid rgba(255,60,75,.48);
+  border-radius:999px;
+  color:#f2f2f2;
+  letter-spacing:3px;
+  font-size:14px;
+  margin-bottom:22px;
+  background:rgba(255,20,35,.09);
+  backdrop-filter:blur(10px);
+  box-shadow:0 0 28px rgba(255,0,35,.12);
+}
+
+.hero h1{
+  font-size:clamp(58px,12vw,150px);
+  line-height:.85;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  text-shadow:0 0 38px rgba(255,0,35,.25);
+}
+
+.hero h1 span{
+  color:#ff263a;
+  text-shadow:0 0 28px rgba(255,0,35,.45);
+}
+
+.hero p{
+  margin:24px auto 34px;
+  max-width:720px;
+  color:#d0d0d0;
+  font-family:Arial, sans-serif;
+  font-size:20px;
+  line-height:1.6;
+}
+
+.hero-buttons{
+  display:flex;
+  gap:16px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.btn{
+  display:inline-block;
+  padding:15px 25px;
+  border-radius:999px;
+  text-decoration:none;
+  color:#fff;
+  background:linear-gradient(135deg,#ff283d,#9d001e);
+  font-weight:900;
+  letter-spacing:1px;
+  transition:.25s ease;
+  box-shadow:0 14px 38px rgba(255,0,35,.22);
+}
+
+.btn.secondary{
+  background:rgba(255,255,255,.03);
+  color:#fff;
+  border:1px solid rgba(255,255,255,.35);
+  box-shadow:none;
+}
+
+.btn:hover{
+  transform:translateY(-4px) scale(1.03);
+  box-shadow:0 18px 45px rgba(255,0,35,.25);
+}
+
+.section{
+  width:92%;
+  max-width:1250px;
+  margin:auto;
+  padding:65px 0;
+}
+
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:20px;
+  margin-bottom:34px;
+}
+
+.section-title h2{
+  font-size:clamp(42px,7vw,82px);
+  text-transform:uppercase;
+}
+
+.section-title p{
+  color:#b9b9b9;
+  font-family:Arial, sans-serif;
+  max-width:390px;
+  line-height:1.5;
+}
+
+.card{
+  position:relative;
+  display:grid;
+  grid-template-columns:430px 1fr;
+  gap:48px;
+  align-items:center;
+  background:linear-gradient(135deg, rgba(255,30,45,.12), rgba(255,255,255,.035));
+  border:1px solid rgba(255,60,75,.28);
+  padding:32px;
+  border-radius:28px;
+  margin-bottom:30px;
+  overflow:hidden;
+  box-shadow:0 25px 70px rgba(0,0,0,.72), 0 0 28px rgba(255,0,35,.08);
+  animation:fadeUp .8s ease both;
+  transition:.28s ease;
+}
+
+.card:nth-of-type(2){animation-delay:.08s;}
+.card:nth-of-type(3){animation-delay:.16s;}
+.card:nth-of-type(4){animation-delay:.24s;}
+
+.card::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  background:linear-gradient(120deg, transparent, rgba(255,40,55,.22), transparent);
+  transform:translateX(-120%);
+  transition:.7s ease;
+}
+
+.card:hover::before{
+  transform:translateX(120%);
+}
+
+.card:hover{
+  transform:translateY(-8px);
+  border-color:rgba(255,80,95,.55);
+}
+
+.preview{
+  position:relative;
+  z-index:1;
+  height:280px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:22px;
+  background:rgba(0,0,0,.18);
+}
+
+.preview img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  filter:grayscale(100%) contrast(1.12) drop-shadow(0 18px 25px rgba(0,0,0,.85));
+  transition:filter .55s ease, transform .55s ease;
+}
+
+.card:hover .preview img,
+.preview img.mobileColor{
+  transform:rotate(-2deg) scale(1.06);
+  filter:grayscale(0%) contrast(1.1) drop-shadow(0 24px 35px rgba(255,0,35,.18));
+}
+
+.info{
+  position:relative;
+  z-index:1;
+}
+
+.option{
+  color:#ff4052;
+  font-size:18px;
+  letter-spacing:2px;
+  margin-bottom:10px;
+}
+
+.info h3{
+  font-size:clamp(42px,6vw,70px);
+  line-height:.95;
+  margin-bottom:18px;
+  text-transform:uppercase;
+}
+
+.price{
+  display:inline-block;
+  background:linear-gradient(135deg,#ff2b3f,#a60020);
+  color:#fff;
+  padding:10px 18px;
+  border-radius:13px;
+  font-size:34px;
+  margin-bottom:22px;
+  box-shadow:0 0 30px rgba(255,0,35,.28);
+}
+
+.info ul{
+  list-style:none;
+  display:grid;
+  gap:12px;
+  color:#e0e0e0;
+  font-family:Arial, sans-serif;
+  font-size:20px;
+}
+
+.info li::before{
+  content:"✓";
+  margin-right:12px;
+  color:#ff3d4f;
+  border:1px solid rgba(255,60,75,.55);
+  border-radius:50%;
+  padding:1px 5px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:25px;
+  align-items:center;
+  margin-top:42px;
+  padding:34px;
+  border-radius:28px;
+  background:linear-gradient(135deg,#ffffff,#dddddd);
+  color:#070707;
+  animation:fadeUp .9s ease both;
+  border:1px solid rgba(255,255,255,.28);
+}
+
+.stats h3{
+  font-size:clamp(34px,5vw,58px);
+  text-transform:uppercase;
+}
+
+.stats span{
+  display:inline-block;
+  margin-left:8px;
+  transform:translateY(2px);
+  color:#c90026;
+}
+
+.stats p{
+  margin-top:8px;
+  color:#333;
+  font-family:Arial, sans-serif;
+  font-size:18px;
+}
+
+.contact{
+  color:#fff;
+  background:linear-gradient(135deg,#111,#000);
+  border:1px solid rgba(255,40,55,.45);
+  border-radius:18px;
+  padding:20px 28px;
+  font-size:28px;
+  text-decoration:none;
+  transition:.25s ease;
+  white-space:nowrap;
+  box-shadow:0 0 26px rgba(255,0,35,.15);
+}
+
+.contact:hover{
+  transform:translateY(-4px);
+  background:#1b1b1b;
+}
+
+.footer{
+  width:92%;
+  max-width:1250px;
+  margin:0 auto;
+  padding:35px 0 50px;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  border-top:1px solid rgba(255,40,55,.22);
+  color:#888;
+  font-family:Arial, sans-serif;
+}
+
+.logo-mark{
+  color:#fff;
+  font-family:Impact, Arial Black, Arial, sans-serif;
+  font-size:30px;
+}
+
+.logo-mark span{
+  color:#ff263a;
+}
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(28px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@media(max-width:900px){
+  .hero{
+    min-height:auto;
+  }
+
+  .section-title{
+    display:block;
+  }
+
+  .section-title p{
+    margin-top:10px;
+  }
+
+  .card{
+    grid-template-columns:1fr;
+    gap:20px;
+    padding:22px;
+  }
+
+  .preview{
+    height:auto;
+    min-height:220px;
+  }
+
+  .info{
+    text-align:center;
+  }
+
+  .stats{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+  .contact{
+    white-space:normal;
+  }
+
+  .footer{
+    flex-direction:column;
+    text-align:center;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="badge">GAMEDAY EDITS • BY DJ</div>
+    <h1>GAMEDAY<br><span>GRAPHICS</span></h1>
+    <p>Sports edits, custom cards, and clean graphics made for game day posts.</p>
+    <div class="hero-buttons">
+      <a class="btn" href="#options">View Options</a>
+      <a class="btn secondary" href="#contact">Order Now</a>
+    </div>
+  </div>
+</header>
+
+<main class="section" id="options">
+
+  <div class="section-title">
+    <h2>RAX Options</h2>
+    <p>Pick your style, send the photos, and get a sharp graphic ready to post.</p>
+  </div>
+
+  <section class="card">
+    <div class="preview">
+      <img src="images/logoinplayers.png" alt="Logo in players card preview">
+    </div>
+    <div class="info">
+      <div class="option">OPTION 1</div>
+      <h3>Logo In Players</h3>
+      <div class="price">50 RAX</div>
+      <ul>
+        <li>Team logo blended with players</li>
+        <li>Clean sports-style layout</li>
+        <li>High quality final image</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="preview">
+      <img src="images/logoplayer.png" alt="Logo plus player card preview">
+    </div>
+    <div class="info">
+      <div class="option">OPTION 2</div>
+      <h3>Logo + Player</h3>
+      <div class="price">150 RAX</div>
+      <ul>
+        <li>Includes two photos</li>
+        <li>Logo with custom backdrop</li>
+        <li>Detailed effects and polish</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="preview">
+      <img src="images/headshot.png" alt="In-game headshot card preview">
+    </div>
+    <div class="info">
+      <div class="option">OPTION 3</div>
+      <h3>In-Game Headshot</h3>
+      <div class="price">50 RAX</div>
+      <ul>
+        <li>Player headshot edit</li>
+        <li>Clean cutout and effects</li>
+        <li>Glossy gameday finish</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="stats" id="contact">
+    <div>
+      <h3>Total Orders So Far:<span>36</span></h3>
+      <p>DM DJ for custom graphics, player edits, or sports card requests.</p>
+    </div>
+    <a class="contact" href="#">CONTACT ON REAL: @dj</a>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="logo-mark">DJ<span>GFX</span></div>
+  <div>© 2026 GAMEDAY GRAPHICS by DJ. All rights reserved.</div>
+</footer>
+
+<script>
+const previewImages = document.querySelectorAll(".preview img");
+
+function updateMobileColor(){
+  const isMobile = window.innerWidth <= 900;
+
+  previewImages.forEach((img) => {
+    if(!isMobile){
+      img.classList.remove("mobileColor");
+      return;
+    }
+
+    const box = img.getBoundingClientRect();
+    const isCentered = box.top < window.innerHeight * 0.72 && box.bottom > window.innerHeight * 0.28;
+
+    if(isCentered){
+      img.classList.add("mobileColor");
+    }else{
+      img.classList.remove("mobileColor");
+    }
+  });
+}
+
+window.addEventListener("scroll", updateMobileColor, { passive:true });
+window.addEventListener("resize", updateMobileColor);
+window.addEventListener("load", updateMobileColor);
+</script>
+
+</body>
+</html>
